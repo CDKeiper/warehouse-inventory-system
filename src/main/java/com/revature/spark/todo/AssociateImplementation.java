@@ -10,7 +10,7 @@ import com.revature.spark.beans.Warehouse;
  * Within this class, you will implement the logic to calculate data for various
  * reports.
  * 
- * @author Your Name Here
+ * @author Colin Keiper
  * 
  */
 public class AssociateImplementation {
@@ -23,7 +23,11 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double sum(List<Product> products) {
-		return null;
+		double ans = 0;
+		for(Product i : products) {
+			ans += i.getPrice() * i.getQuantity();
+		}
+		return ans;
 	}
 
 	/**
@@ -33,7 +37,11 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double min(List<Product> products) {
-		return null;
+		double min = 9001; //initialize current minimum as arbitrarily large
+		for(Product i : products) {
+			if(i.getPrice()<min) { min = i.getPrice();}
+		}
+		return min;
 	}
 
 	/**
@@ -43,7 +51,11 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double max(List<Product> products) {
-		return null;
+		double max = 0; //initialize current maximum 
+		for(Product i : products) {
+			if(i.getPrice() > max) { max = i.getPrice();}
+		}
+		return max;
 	}
 
 	/**
@@ -53,7 +65,13 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double avg(List<Product> products) {
-		return null;
+		double len = 0;
+		double sum = 0;
+		for(Product i : products) {
+			sum += i.getPrice(); 
+			len++;
+		}
+		return (sum/len);
 	}
 
 	/**
@@ -63,9 +81,45 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double median(List<Product> products) {
-		return null;
+		int len = products.size();
+		int count = 0; //iteration variable
+		double[] prices = new double[len]; //empty array to store prices
+		double median;
+		for(Product i : products) { //fill prices array
+			System.out.print(i.getPrice());
+			prices[count] = i.getPrice();
+			count++;
+		}
+		if(len==1) {return prices[0];}
+		prices = bubbleSort(prices); //sort prices least-greatest
+		if(len%2==0) {median = prices[(len/2)-1];} //calculates median
+		else {median = (prices[(len/2)-1]+prices[(len/2)]) / 2;}
+		System.out.println(median);
+		return median;
 	}
 
+	public double[] bubbleSort(double [] prices) { //standard bubblesort algorithm
+		int len = prices.length;
+		int swaps = 1;
+		double holder;
+		while(swaps>0 && len>1) {
+			swaps = 0;
+			for(int i=0;i<len;i++) {
+				if(prices[i] <= prices[i+1]) continue;
+				else {
+					holder = prices[i];
+					prices[i] = prices[i+1];
+					prices[i+1] = holder;
+					swaps ++;
+				}
+			}
+		}
+		for(int i=0;i<len;i++) {
+		}
+		return prices;
+	}
+
+	
 	/**
 	 * !! BONUS CHALLENGE REQUIREMENT !!
 	 * 

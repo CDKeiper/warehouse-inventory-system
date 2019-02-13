@@ -1,0 +1,48 @@
+
+#bigTitle{
+    /* position: sticky top; */
+    background-color: rgb(253, 237, 224);
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#formDiv{
+
+}
+
+#entryForm{
+
+}
+
+#deleteForm{
+    
+}
+
+.form-control{
+    margin-bottom: 15px;
+}
+
+#MainListDiv{
+ margin:1cm;
+}
+
+#submit{
+    border-color:  rgb(173, 156, 101);
+    border-width: 5px;
+    background-color: rgb(212, 192, 126);
+    color:  rgb(66, 59, 36);
+}
+
+#delete{
+    border-color:  rgb(173, 130, 101);
+    border-width: 5px;
+    background-color: rgb(223, 168, 132);
+    color:  rgb(59, 44, 34);
+}
+
+#update{
+    border-color:  rgb(101, 126, 173);
+    border-width: 5px;
+    background-color: rgb(138, 171, 233);
+    color:   rgb(42, 53, 73);
+}

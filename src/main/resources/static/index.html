@@ -1,3 +1,137 @@
+<!DOCTYPE html>
 <html>
-<body>Hello World</body>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Warehouse Inventory System Access</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="WarehouseStyles.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+</head>
+<body style = "background-image: 'image.png';">
+    <h1 id = "bigTitle">Warehouse Inventory System</h1>
+    <h1>UPDATE 1.02</h1>
+
+    <div id = "MainListDiv">
+            <table id = "MainList" class="table table-striped table-bordered table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col" id = "idCol">
+                            <h4>ID#</h4>
+                        </th>
+                        <th scope="col">
+                            <h4>Name</h4>
+                        </th>
+                        <th scope="col">
+                            <h4>Price($)</h4>
+                        </th>
+                        <th scope="col">
+                            <h4>Quantity</h4>
+                        </th>
+                        <th scope="col">
+                            <h4>Warehouse ID</h4>
+                        </th>
+                        <th scope="col">
+                            <h4>Warehouse Name</h4>
+                        </th>
+                        <th scope="col">
+                            <h4>Warehouse Address</h4>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id = "oldBody">
+                    <tr scope="row">
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            Milk - Chocolate 500ml
+                        </td>
+                        <td>
+                            79.13
+                        </td>
+                        <td>
+                            14
+                        </td>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            Nuveen New York AMT-Free Quality Municipal
+                        </td>
+                        <td>
+                            27011 Pankratz Crossing
+                        </td>
+                    </tr>
+                    <tr scope="row">
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Lid - 3oz Med Rec
+                            </td>
+                            <td>
+                                88.62
+                            </td>
+                            <td>
+                                97
+                            </td>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                0565 Brentwood Circle
+                            </td>
+                            <td>
+                                1347 Property Insurance Holdings, Inc.
+                            </td>
+                        </tr> 
+                    </tbody>
+            </table>
+        </div>
+
+        <b>Average</b>
+        <p id = "avg"></p>
+
+        <b>Max</b>
+        <p id = "max"></p>
+
+        <b>Min</b>
+        <p id = "min"></p>
+
+        <b>Median</b>
+        <p id = "med"></p>
+
+        <div>
+                <h4>Enter item data, then click "Submit" to add it to the table</h4>
+                <h5>"Update" will update the item with the same ID, and "Delete" will delete the object</h3>
+                <hr>
+                <div class="container" id = "formDiv">
+                    <form class="form-group" id = "entryForm">
+                        <label>ID Number:</label>
+                        <input class="form-control" type="number" id="idNum">
+                        <label>Name:</label>
+                        <input class="form-control" type="text" id="name">
+                        <label>Price:</label>
+                        <input class="form-control" type="number" id="price">
+                        <label>Quantity:</label>
+                        <input class="form-control" type="number" id="quantity">
+                        <label>Warehouse ID:</label>
+                        <input class="form-control" type="number" id="wareIdNum">
+                        <label>Warehouse Name:</label>
+                        <input class="form-control" type="text" id="wareName">
+                        <label>Warehouse Address:</label>
+                        <input class="form-control" type="text" id="wareAdd">
+                    <button type = "submit" id="submit" class="btn btn-outline-primary">Submit</button>
+                    <button type = "submit" id="update" class="btn btn-outline-primary">Update</button>
+                    <button type = "submit" id="delete" class="btn btn-outline-primary">Delete</button>
+                </form>
+                </div>
+            </div>
+            <hr>
+            <script src="Project(-1.5)JS.js"></script>
+            <script src="Project(-1)JS.js"></script>
+</body>
+
 </html>
