@@ -44,11 +44,11 @@ function submitPress() {
         //construct object for post request
         let wareObj = {
             address: submitAddress.value,
-            wareID: Number(submitWareId.value),
-            wareName: submitWareName.value
+            id: Number(submitWareId.value),
+            name: submitWareName.value
         };
         let updateData ={ //builds and stringifies the JSON object
-            idnum: Number(submitID.value),
+            id: Number(submitID.value),
             name: submitName.value,
             price: Number(submitPrice.value),
             quantity: Number(submitQuantity.value),
@@ -56,8 +56,8 @@ function submitPress() {
         };
         console.log(updateData);
 
-    //send post request with new data. Be sure to wait unti the response comes before next step
-        sendAJAXPost(POSTurl, printPostResponse, updateData); //Send request. How do I wait until it's done?
+    //send post request with new data. Be sure to wait until the response comes before next step
+        sendAJAXPost(POSTurl, printPostResponse, updateData); //Send request. 
 
     //send get request for data to refresh the table
         setTimeout(500); //adds a delay to ensure they don't overlap
@@ -70,11 +70,11 @@ function deletePress(){
     //send request with data to delete
         let wareObj = {
             address: submitAddress.value,
-            wareID: Number(submitWareId.value),
-            wareName: submitWareName.value
+            id: Number(submitWareId.value),
+            name: submitWareName.value
         };
         let deleteData = { //builds and stringifies the JSON object
-            idnum: Number(submitID.value),
+            id: Number(submitID.value),
             name: submitName.value,
             price: Number(submitPrice.value),
             quantity: Number(submitQuantity.value),
@@ -92,56 +92,61 @@ function deletePress(){
 function updatePress(){
     console.log("Update pressed!");//debigging
     //find data from table
-    for(i in idCol){
-        if(i.innerHTML == submitID.value){
-            let deleteID = i.innerHTML;
-            let deleteName = i.nextSibling;
-            let deletePrice = deleteName.nextSibling;
-            let deleteQuantity = deletePrice.nextSibling;
-            let deleteWareID = deleteQuantity.nextSibling;
-            let deleteWareName = deleteWareID.nextSibling;
-            let deleteWareAdd = deleteWareName.nextSibling;
-            console.log("deleteWareAdd defined");
-            break;
+    let idNums = document.getElementsByClassName("idnums");
+    for(i=0;i<idNums.length;i++){
+        if(idNums[i].innerHTML == submitID.value){
+            var deleteID = idNums[i].innerHTML; //stores innerHTML
+            var deleteName = idNums[i].nextSibling; //these do NOT store innerHTML because they are needed for references. The innerHTML will be referenced later.
+            var deletePrice = deleteName.nextSibling;
+            var deleteQuantity = deletePrice.nextSibling;
+            var deleteWareID = deleteQuantity.nextSibling;
+            var deleteWareName = deleteWareID.nextSibling;
+            var deleteWareAdd = deleteWareName.nextSibling;
         }
     }
     let wareObjDel = {
         address: deleteWareAdd.innerHTML,
-        wareID: Number(deleteWareID.innerHTML),
-        wareName: deleteWareName.innerHTML
-    };
+        id: Number(deleteWareID.innerHTML),
+        name: deleteWareName.innerHTML
+    }
+    
     let deleteData = { //builds and stringifies the JSON object
-        idnum: Number(deleteID),
+        id: Number(deleteID),
         name: deleteName.innerHTML,
         price: Number(deletePrice.innerHTML),
         quantity: Number(deleteQuantity.innerHTML),
         warehouse: wareObjDel
     }
-    console.log(deleteData);//Debugging
+
     sendAJAXDelete(DELETEurl, printDeleteResponse, deleteData); //send request with data to delete
-        let wareObj = {
-            address: submitAddress.value,
-            wareID: Number(submitWareId.value),
-            wareName: submitWareName.value
-        };
-        let updateData = JSON.stringify({ //builds and stringifies the JSON object
-            idnum: Number(submitID.value),
-            name: submitName.value,
-            price: Number(submitPrice.value),
-            quantity: Number(submitQuantity.value),
-            warehouse: wareObj
-        });
-        console.log(updateData);
-    sendAJAXPost(POSTurl, printPostResponse, updateData);
-    //send get request for data to refresh the table
-    setTimeout(500); //adds a delay to ensure they don't overlap
-    sendAJAXGet(GETurl, printGetResponse);
+ 
+    setTimeout(500);
+
+    submitPress();
+//        let wareObj = {
+//            address: submitAddress.value,
+//            id: Number(submitWareId.value),
+//            name: submitWareName.value
+//        };
+//        let updateData = JSON.stringify({ //builds and stringifies the JSON object
+//            id: Number(submitID.value),
+//            name: submitName.value,
+//            price: Number(submitPrice.value),
+//            quantity: Number(submitQuantity.value),
+//            warehouse: wareObj
+//        });
+//        console.log(updateData);
+// 
+//    sendAJAXPost(POSTurl, printPostResponse, updateData);
+//    //send get request for data to refresh the table
+//    setTimeout(500); //adds a delay to ensure they don't overlap
+//    sendAJAXGet(GETurl, printGetResponse);
 }
 
 
 function sendAJAXPost(url, callback, data) {//from notes
     let xhr = new XMLHttpRequest();  //Create XHR object
-    xhr.open("POST", url, false);//add a "false" as a third input if you want the funtion to run synchronysly.
+    xhr.open("POST", url, false);//add a "false" as a third input if you want the function to run synchronysly.
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {//> 199 && xhr.status < 300) {
             callback(this);
@@ -156,7 +161,7 @@ function sendAJAXPost(url, callback, data) {//from notes
 
 function sendAJAXGet(url, callback) {
     let xhr = new XMLHttpRequest(); // Note that this function only returns the parsed response data. Not the whole xhr.
-    xhr.open("GET", url, true); //the "true" refers to whether or not we want the funtion to run asynchronysly.
+    xhr.open("GET", url, true); //the "true" refers to whether or not we want the function to run asynchronysly.
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             callback(this);
@@ -170,7 +175,7 @@ function sendAJAXGet(url, callback) {
 
 function sendAJAXDelete(url, callback, data) {//from notes
     let xhr = new XMLHttpRequest();  //Create XHR object
-    xhr.open("DELETE", url, false);//add a "false" as a third input if you want the funtion to run synchronysly.
+    xhr.open("DELETE", url, false);//add a "false" as a third input if you want the function to run synchronysly.
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {//> 199 && xhr.status < 300) {
             callback(this);
@@ -209,9 +214,12 @@ let postObject = { //example object for debugging
 function printGetResponse(xhrObj) {
     let jsonResponse = xhrObj.response;
     let data = JSON.parse(jsonResponse);
+//    for (i in data) fillCells(i.id,i.name,i.price,i.quantity, i.warehouse.id, i.warehouse.name, i.warehouse.address);
     fillCells(data);
-    console.log("Data recieved");
+    console.log(data);
 }
+
+sendAJAXGet(GETurl, printGetResponse);
 
 function printPostResponse(xhrObj) {
     console.log(xhrObj.response);
@@ -221,42 +229,38 @@ function printDeleteResponse(xhrObj) {
     console.log(xhrObj.response);
 }
 
-function writeCells(data){
-    let oldBody = document.getElementsByTagName("tbody")[0]; //Get nodes for old and new table body elements
-    let newBody = document.createElement("tbody");
-    let cellText = "";
-    tableLen = 0;
-    for(i in data){
-        row = newBody.insertRow(tableLen);
-         cellText = "";
-        for(j=0;j<7;j++){
-            cellText+="<td>" + i[j] + "</td>";
-        }
-        tableLen++;
-        row += cellText;
-    }
-    oldBody.parentNode.replaceChild(newBody, oldBody);
+//function writeCells(data){
+//    let oldBody = document.getElementsByTagName("tbody")[0]; //Get nodes for old and new table body elements
+//    let newBody = document.createElement("tbody");
+//    let cellText = "";
+//    tableLen = 0;
+//    for(i in data){
+//        row = newBody.insertRow(tableLen);
+//         cellText = "";
+//        for(j=0;j<7;j++){
+//            cellText+="<td>" + i[j] + "</td>";
+//        }
+//        tableLen++;
+//        row += cellText;
+//    }
+////    oldBody.parentNode.replaceChild(newBody, oldBody);
 
-}
+//}
 
-function fillCells(returnData){ //populate table with new data
+//function fillCells{ //populate table with new data
     //empty table
 
     // let oldBody = document.getElementsByTagName("tbody")[0]; //Get nodes for old and new table body elements
     // let newBody = document.createElement("tbody");
 
-    tableLen = 0; //reset table length counter
-    for (i in returnData) {
-        newID = i.id; 
-        newName = i.name;
-        newPrice = i.price;
-        newQuantity = i.quantity;
-        newWareID = i.warehouse.id;
-        newWareName = i.warehouse.name;
-        newAddress = i.warehouse.address;
 
+//	function fillCells(newID,newName,newPrice,newQuantity, newWareID, newWareName, newAddress){
+	function fillCells(data){
+		for(i=0;i<data.length;i++){
+    tableLen = 0; //reset table length counter
         row = document.createElement("tr"); //builds new row and cells
         cell1 = document.createElement("td");
+        cell1.setAttribute("class", "idnums");
         cell2 = document.createElement("td");
         cell3 = document.createElement("td");
         cell4 = document.createElement("td");
@@ -272,25 +276,20 @@ function fillCells(returnData){ //populate table with new data
         row.appendChild(cell6);
         row.appendChild(cell7);
 
-        cell1.innerHTML = newID; //populates elements
-        cell2.innerHTML = newName;
-        cell3.innerHTML = newPrice;
-        cell4.innerHTML = newQuantity;
-        cell5.innerHTML = newWareID;
-        cell6.innerHTML = newWareName;
-        cell7.innerHTML = newAddress;
+        cell1.innerHTML = data[i].id; //populates elements
+        cell2.innerHTML = data[i].name;
+        cell3.innerHTML = data[i].price;
+        cell4.innerHTML = data[i].quantity;
+        cell5.innerHTML = data[i].warehouse.id;
+        cell6.innerHTML = data[i].warehouse.name;
+        cell7.innerHTML = data[i].warehouse.address;
 
         document.getElementById("MainList").appendChild(row);
 
         tableLen++; //increment length counter each time a new row is added
+		}
     }
 
     // oldBody = tableNode.replaceChild(newBody, oldBody);
-}
+//}
 
-
-
-{
-
-
-}

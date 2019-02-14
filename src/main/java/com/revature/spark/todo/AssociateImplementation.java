@@ -80,45 +80,60 @@ public class AssociateImplementation {
 	 * @param products
 	 * @return
 	 */
-	public Double median(List<Product> products) {
-		int len = products.size();
-		int count = 0; //iteration variable
-		double[] prices = new double[len]; //empty array to store prices
-		double median;
-		for(Product i : products) { //fill prices array
-			System.out.print(i.getPrice());
-			prices[count] = i.getPrice();
-			count++;
+	public double median(List<Product> products) {
+		
+		double[] prices = new double[products.size()]; //empty array to store prices
+		for(int i=0; i<prices.length;i++) {
+			prices[i] = products.get(i).getPrice();
 		}
-		if(len==1) {return prices[0];}
-		prices = bubbleSort(prices); //sort prices least-greatest
-		if(len%2==0) {median = prices[(len/2)-1];} //calculates median
-		else {median = (prices[(len/2)-1]+prices[(len/2)]) / 2;}
-		System.out.println(median);
-		return median;
-	}
-
-	public double[] bubbleSort(double [] prices) { //standard bubblesort algorithm
-		int len = prices.length;
-		int swaps = 1;
 		double holder;
-		while(swaps>0 && len>1) {
-			swaps = 0;
-			for(int i=0;i<len;i++) {
-				if(prices[i] <= prices[i+1]) continue;
-				else {
-					holder = prices[i];
-					prices[i] = prices[i+1];
-					prices[i+1] = holder;
-					swaps ++;
+		for(int i = 0; i < prices.length-1; i++) {
+			for(int j = 0; j < prices.length-1-i; j++) {
+				if(prices[j+1] < prices[j]) {
+					holder =prices[j];
+					prices[j]=prices[j+1];
+					prices[j+1]= holder;
 				}
 			}
 		}
-		for(int i=0;i<len;i++) {
+		
+		double median;
+		if(prices.length==1) {return prices[0];}
+		if(prices.length%2==0)
+		{median = ((prices[prices.length/2])+(prices[prices.length/2-1]))/2;
+		
 		}
-		return prices;
+		
+		else {
+			median = (prices[(prices.length/2)]);
+		
+		} //calculates median
+		
+		return median;
 	}
 
+
+	
+	
+//	int len = prices.length;
+//	int swaps = 1;
+//	double holder;
+//	while(swaps>0) {
+//		swaps = 0;
+//		for(int i=0;i<len;i++) {
+//			if(prices[i] <= prices[i+1]) continue;
+//			else {
+//				holder = prices[i];
+//				prices[i] = prices[i+1];
+//				prices[i+1] = holder;
+//				swaps ++;
+//			}
+//		}
+//	}
+//	for(int i=0;i<len;i++) {
+//	}
+//	return prices;
+	
 	
 	/**
 	 * !! BONUS CHALLENGE REQUIREMENT !!
@@ -148,5 +163,4 @@ public class AssociateImplementation {
 	public Map<Warehouse, Double> totalAssetsPerWarehouse(List<Product> products) {
 		return null;
 	}
-
 }

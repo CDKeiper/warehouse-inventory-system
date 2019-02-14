@@ -21,11 +21,38 @@ function sendAJAXGet(url, callback) {
     // return ans;
 }
 
-function printAVGResponse(xhrObj) {
+function printAVGResponse(xhrObj) { //AVG response fxn
     let jsonResponse = xhrObj.response;
     let data = JSON.parse(jsonResponse);
     document.getElementById("avg").innerHTML = data;
 }
 
 
-sendAJAXGet(AVGurl, printAVGResponse);
+sendAJAXGet(AVGurl, printAVGResponse); //call AVG
+
+function printMINResponse(xhrObj) {
+    let jsonResponse = xhrObj.response;
+    let data = JSON.parse(jsonResponse);
+    document.getElementById("min").innerHTML = data;
+}
+
+
+sendAJAXGet(MINurl, printMINResponse);
+
+function printMAXResponse(xhrObj) {
+    let jsonResponse = xhrObj.response;
+    let data = JSON.parse(jsonResponse);
+    document.getElementById("max").innerHTML = data;
+}
+
+
+sendAJAXGet(MAXurl, printMAXResponse);
+
+function printMedResponse(xhrObj) {
+    let jsonResponse = xhrObj.response;
+    let data = JSON.parse(jsonResponse);
+    document.getElementById("med").innerHTML = data;
+}
+
+
+sendAJAXGet(MEDurl, printMedResponse);
